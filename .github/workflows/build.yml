@@ -40,6 +40,16 @@ jobs:
         conan profile new default --detect
         conan profile update settings.compiler.libcxx=libstdc++11 default
 
+    - name: Download build-wrapper
+      env:
+        BUILD_WRAPPER_DOWNLOAD_URL: https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+      run: |
+        mkdir -p $HOME/.sonar
+        curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+        unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+
+        echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+
     - name: Create folders
       working-directory: ${{ github.workspace}}/${{ env.THIS_REPO_PATH }}
       run: |
@@ -52,7 +62,7 @@ jobs:
         conan profile list
         conan profile show default
         cmake -DCMAKE_BUILD_TYPE=Debug ..
-        make -j2
+        build-wrapper-linux-x86-64 --out-dir . make -j2
 
         nm -o src/CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept
         nm -o src/CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept | wc -l
