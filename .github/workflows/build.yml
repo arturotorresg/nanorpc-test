@@ -64,6 +64,7 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=Debug \
         -Dscv_WARNINGS_AS_ERRORS=TRUE \
         -Dscv_ENABLE_COVERAGE=FALSE \
+        -Dscv_ENABLE_IPO=FALSE \
         -Dscv_ENABLE_CLANG_TIDY=FALSE \
         -Dscv_ENABLE_CPPCHECK=FALSE \
         -Dscv_ENABLE_SANITIZER_ADDRESS=FALSE \
