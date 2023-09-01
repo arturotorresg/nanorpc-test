@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  THIS_REPO_PATH: repo
+  BUILD_DIR: _build
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+
+    - name: Set up gcc 10
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-10 g++-10 lcov cmake
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
+
+    - name: Install dependencies
+      run: sudo apt-get install -y libudev-dev libv4l-dev libturbojpeg0-dev libcurl4-openssl-dev libssl-dev
+
+    - name: Checkout this repo
+      uses: actions/checkout@v3
+      with:
+        # repository: ${{ github.repository }}
+        path: ${{ env.THIS_REPO_PATH }}
+
+    - name: Create folders
+      working-directory: ${{ github.workspace}}/${{ env.THIS_REPO_PATH }}
+      run: |
+        mkdir -p ${{ env.BUILD_DIR }}
+
+    - name: Make
+      working-directory: ${{ github.workspace}}/${{ env.THIS_REPO_PATH }}/${{ env.BUILD_DIR }}
+      run: |
+        cmake -DCMAKE_BUILD_TYPE=Debug ..
+        make -j2
