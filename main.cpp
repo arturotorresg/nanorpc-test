@@ -23,4 +23,6 @@ int main()
         std::cerr << "Error: " << nanorpc::core::exception::to_string(e) << std::endl;
         return false;
     }
+
+    return 0;
 }
