@@ -1,7 +1,7 @@
 #include <nanorpc/http/easy.h>
 #include <iostream>
 
-bool entrypoint(const std::string & str)
+bool entrypoint([[maybe_unused]] const std::string & str)
 {
     return true;
 }
