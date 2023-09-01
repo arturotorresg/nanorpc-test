@@ -2,6 +2,17 @@ cmake_minimum_required(VERSION 3.16.0)
 project(nanorpc-test VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+# CMake rules
+include(PreventInSourceBuilds)
+include(ProjectOptions)
+
+scv_setup_options()
+
+scv_global_options()
+
+scv_local_options()
 
 # Conan
 include(Conan.cmake)

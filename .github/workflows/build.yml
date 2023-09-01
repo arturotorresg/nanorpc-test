@@ -61,7 +61,17 @@ jobs:
         conan user
         conan profile list
         conan profile show default
-        cmake -DCMAKE_BUILD_TYPE=Debug ..
+        cmake -DCMAKE_BUILD_TYPE=Debug \
+        -Dscv_WARNINGS_AS_ERRORS=TRUE \
+        -Dscv_ENABLE_COVERAGE=TRUE \
+        -Dscv_ENABLE_CLANG_TIDY=FALSE \
+        -Dscv_ENABLE_CPPCHECK=TRUE \
+        -Dscv_ENABLE_SANITIZER_ADDRESS=FALSE \
+        -Dscv_ENABLE_SANITIZER_LEAK=FALSE \
+        -Dscv_ENABLE_SANITIZER_UNDEFINED=FALSE \
+        -Dscv_ENABLE_SANITIZER_THREAD=FALSE \
+        -Dscv_ENABLE_SANITIZER_MEMORY=FALSE \
+        ..
         build-wrapper-linux-x86-64 --out-dir . make -j2
 
         nm -o src/CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept
