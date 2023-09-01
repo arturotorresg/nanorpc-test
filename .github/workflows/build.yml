@@ -20,13 +20,25 @@ jobs:
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
 
     - name: Install dependencies
-      run: sudo apt-get install -y libudev-dev libv4l-dev libturbojpeg0-dev libcurl4-openssl-dev libssl-dev libboost-all-dev
+      run: sudo apt-get install -y libudev-dev libv4l-dev libturbojpeg0-dev libcurl4-openssl-dev libssl-dev
 
     - name: Checkout this repo
       uses: actions/checkout@v3
       with:
         # repository: ${{ github.repository }}
         path: ${{ env.THIS_REPO_PATH }}
+
+    - name: Set up Conan
+      run: |
+        pip install conan==1.57.0
+        conan --version
+        conan remote add sby ${{ secrets.CONAN_SBY_SERVER_URL }}
+        conan user -r sby ${{ secrets.CONAN_USER }} -p ${{ secrets.CONAN_PASSWORD }}
+        conan remote disable conancenter
+        conan remote list
+        conan search -r sby
+        conan profile new default --detect
+        conan profile update settings.compiler.libcxx=libstdc++11 default
 
     - name: Create folders
       working-directory: ${{ github.workspace}}/${{ env.THIS_REPO_PATH }}
@@ -36,5 +48,8 @@ jobs:
     - name: Make
       working-directory: ${{ github.workspace}}/${{ env.THIS_REPO_PATH }}/${{ env.BUILD_DIR }}
       run: |
+        conan user
+        conan profile list
+        conan profile show default
         cmake -DCMAKE_BUILD_TYPE=Debug ..
         make -j2
