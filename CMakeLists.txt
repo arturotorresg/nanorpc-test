@@ -4,6 +4,8 @@ project(nanorpc-test VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # CMake rules
 include(PreventInSourceBuilds)
 include(ProjectOptions)

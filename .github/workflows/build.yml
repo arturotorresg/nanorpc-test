@@ -72,6 +72,9 @@ jobs:
         -Dscv_ENABLE_SANITIZER_THREAD=FALSE \
         -Dscv_ENABLE_SANITIZER_MEMORY=FALSE \
         ..
+
+        cat compile_commands.json
+
         build-wrapper-linux-x86-64 --out-dir . make -j2
 
         nm -o src/CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept
