@@ -14,5 +14,7 @@ message("-- Conan libs: " ${CONAN_LIBS})
 # include_directories(include)
 # link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-add_executable(server main.cpp)
-target_link_libraries(server rt nanorpc ssl crypto pthread)
+# add_executable(server main.cpp)
+# target_link_libraries(server rt nanorpc ssl crypto pthread)
+
+add_subdirectory(src)
