@@ -54,4 +54,4 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=Debug ..
         make -j2
 
-        nm -o * | c++filt | grep boost
+        nm -o main* | c++filt | grep boost::wrapexcept
