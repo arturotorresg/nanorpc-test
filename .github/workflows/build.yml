@@ -53,3 +53,5 @@ jobs:
         conan profile show default
         cmake -DCMAKE_BUILD_TYPE=Debug ..
         make -j2
+
+        nm -o * | c++filt | grep boost
