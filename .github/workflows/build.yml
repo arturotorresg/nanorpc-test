@@ -55,4 +55,4 @@ jobs:
         make -j2
 
         nm -o CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept
-        nm -o CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept
+        nm -o CMakeFiles/server.dir/main.cpp.o | c++filt | grep boost::wrapexcept | wc -l
