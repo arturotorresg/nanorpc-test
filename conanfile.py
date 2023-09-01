@@ -11,7 +11,7 @@ class ComputerVisionConan(ConanFile):
 
     def requirements(self):
         self.requires("Boost/1.75.0@CV/lib")
-        # self.requires("Nanorpc/1.1.1@CV/lib")
+        self.requires("Nanorpc/1.1.1@CV/lib")
 
     def package(self):
         self.copy("*.h", dst="include", src="lib")
