@@ -15,7 +15,7 @@ scv_global_options()
 scv_local_options()
 
 # Conan
-include(Conan.cmake)
+include(Conan)
 set(CONAN_SYSTEM_INCLUDES ON)
 conan_cmake_install(PATH_OR_REFERENCE ${CMAKE_SOURCE_DIR}/conanfile.py)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
