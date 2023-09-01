@@ -4,7 +4,7 @@ project(nanorpc-test VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 
 # Conan
-include(Conan)
+include(Conan.cmake)
 set(CONAN_SYSTEM_INCLUDES ON)
 conan_cmake_install(PATH_OR_REFERENCE ${CMAKE_SOURCE_DIR}/conanfile.py)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
